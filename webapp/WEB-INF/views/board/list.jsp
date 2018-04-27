@@ -38,7 +38,7 @@
 
 						<tr>
 							<td>${BoardVO.no}</td>
-							<td><a href="${pageContext.request.contextPath}/board/view?no=${BoardVO.no}&hit=${BoardVO.hit}">${BoardVO.title}</a></td>
+							<td><a href="${pageContext.request.contextPath}/board/view?no=${BoardVO.no}">${BoardVO.title}</a></td>
 							<td>${BoardVO.name}</td>
 							<td>${BoardVO.hit}</td>
 							<td>${BoardVO.reg_date}</td>
