@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="user">
+
+	<!-- 쿼리문 작성 -->
+
+	<insert id="insert" parameterType="UserVO">
+  <![CDATA[
+  
+   insert into users 
+   values (seq_user_no.NEXTVAL
+           ,#{name} 
+	       ,#{email}
+	       ,#{password}
+	       ,#{gender}
+	       
+	       )
+  ]]>
+
+	</insert>
+
+	<select id="selectUserByEmailPw" parameterType="map" resultType="UserVO"> <!--키값이 email과 pw -->
+   <![CDATA[
+      select no, name
+      from users
+      where email=#{email} 
+      and password=#{password}
+  ]]>
+
+
+
+	</select>
+
+	<select id="select" parameterType="int" resultType="UserVO"> <!--키값이 email과 pw -->
+   <![CDATA[
+      select no, name, email, password, gender
+      from users
+      where no=#{no} 
+  ]]>
+
+
+	</select>
+
+	<update id="update" parameterType="UserVO">
+   <![CDATA[
+   UPDATE users
+     SET NAME=#{name}
+     ,PASSWORD=#{password}
+     ,GENDER=#{gender}
+     WHERE EMAIL=#{email}
+  ]]>
+
+	</update>
+
+
+</mapper>
