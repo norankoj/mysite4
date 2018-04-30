@@ -93,7 +93,7 @@ public class Usercontroller {
 	public boolean exists(@RequestParam ("email")String email) {
 		System.out.println("ajax 이메일 체크"+email);
 		//DB에 보내서 service에서 true/false 로 처리해 받아오기
-		boolean isExists = true;
+		boolean isExists = userService.idcheck(email);
 		
 		//다 처리했다고 치고 true로 왓다고 하고 리턴에 true로 보냄 
 		return isExists;

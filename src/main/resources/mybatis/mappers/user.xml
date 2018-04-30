@@ -32,6 +32,17 @@
 
 	</select>
 
+
+	<select id="idCheck" parameterType="String" resultType="UserVO">
+	   <![CDATA[
+          select no, name, email, password, gender
+          from users
+          where email=#{email} 
+        ]]>
+
+
+	</select>
+
 	<select id="select" parameterType="int" resultType="UserVO"> <!--키값이 email과 pw -->
    <![CDATA[
       select no, name, email, password, gender

@@ -38,6 +38,11 @@ public class UserDAO {
 		
 		return sqlsession.update("user.update",vo);
 	}
+     
+     public UserVO idCheck(String email) {
+    	 
+    	 return sqlsession.selectOne("user.idCheck", email);
+     }
 
 
 }
