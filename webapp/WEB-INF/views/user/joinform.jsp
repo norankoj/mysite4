@@ -6,6 +6,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
 	<link href="${pageContext.request.contextPath}/assets/css/user.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
 	<title>회원가입</title>
 </head>
 <body>
@@ -25,7 +26,8 @@
 	
 						<label class="block-label" for="email">이메일</label>
 						<input id="email" name="email" type="text" value="">
-						<input type="button" value="id 중복체크">
+						<input id="btnEmailCheck" type="button" value="id 중복체크">
+						<div id="msg" ></div>
 						
 						<label class="block-label">패스워드</label>
 						<input name="password" type="password" value="">
@@ -54,4 +56,46 @@
 	</div> <!-- /container -->
 
 </body>
+<script type="text/javascript">
+  $("#btnEmailCheck").on("click", function(){
+	 console.log("이메일체크버튼");
+	 
+	 var email = $("#email").val();
+	 console.log(email);
+	 
+		 
+         $.ajax({
+           
+        	 //요청할때
+             url : "${pageContext.request.contextPath }/user/emailcheck", 
+             type : "post",
+            // contentType : "application/json",
+            data : {email:email},        
+           
+             //응답받을때
+             dataType : "json",
+             success : function(isExists){
+            	 console.log(isExists);
+            	 if(isExists==true){
+            		 $("#msg").html("사용중인 아이디 입니다.")
+            	 }else{
+            		 $("#msg").html("사용할 수 있는 아이디 입니다.")
+            	 }
+        
+         
+             },
+         
+             error : function(XHR, status, error) {
+         
+            	 console.error(status + " : " + error);
+         
+             }
+         
+         });
+         
+         
+	  
+  });
+
+</script>
 </html>

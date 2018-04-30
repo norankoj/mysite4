@@ -15,6 +15,8 @@ public class BoardService {
 	private BoardDAO dao;
 	
 	public List<BoardVO> list(){
+	
+		
 		return dao.select();
 	}
 	

@@ -5,10 +5,12 @@
 
 	<select id="select" resultType="BoardVO">
       <![CDATA[
-           Select b.no, b.title, b.hit, b.reg_date, b.user_no, u.name 
+           Select *from 
+           (Select b.no, b.title, b.hit, b.reg_date, b.user_no, u.name 
            from BOARD b,USERS u 
 		   where B.USER_NO = U.NO 
-		   order by no desc 
+		   order by no desc) 
+		   where rownum<6 
  ]]>
 
 
