@@ -14,10 +14,34 @@
 
 	</insert>
 	
+	<insert id="insert2" parameterType="guestbookVO">
+	    <selectKey keyProperty="no" resultType="int" order="BEFORE"> 
+	        select SEQ_NO.NEXTVAL from dual
+	    </selectKey>
+        <![CDATA[
+            insert into GUESTBOOK 
+            VALUES(
+              #{no}
+             ,#{name}
+             ,#{pw}
+             ,#{content}
+             ,SYSDATE)
+          ]]>
+
+	</insert>
+	
 	<select id="select" resultType="guestbookVO">
 	       <![CDATA[
 	           select no,name,pw,content,reg_date
 	           from guestbook
+	           order by no desc
+	        ]]>
+	</select>
+	<select id="selectNo" parameterType="int" resultType="guestbookVO">
+	       <![CDATA[
+	           select no,name,pw,content,reg_date
+	           from guestbook
+	           where no=#{no}
 	           order by no desc
 	        ]]>
 	</select>

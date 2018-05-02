@@ -27,4 +27,13 @@ public class GuestService {
 	public int delete(GuestbookVO vo) {
 		return dao.delete(vo);
 	}
+	
+	public GuestbookVO write(GuestbookVO vo) {
+		//insert
+		int no=dao.insert2(vo);
+		
+		//select
+		
+		return dao.selectNo(no);
+	}
 }

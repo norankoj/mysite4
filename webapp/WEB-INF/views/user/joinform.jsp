@@ -23,6 +23,7 @@
 						<input type="hidden" name="a" value="join"> <!--쿼리스트링으로도 할 수 있지만! 그땐,post-->
 						<label class="block-label" for="name">이름</label>
 						<input id="name" name="name" type="text" value="">
+						<div id="msgname" ></div>
 	
 						<label class="block-label" for="email">이메일</label>
 						<input id="email" name="email" type="text" value="">
@@ -69,7 +70,7 @@
         	 //요청할때
              url : "${pageContext.request.contextPath }/user/emailcheck", 
              type : "post",
-            // contentType : "application/json",
+             // contentType : "application/json",
             data : {email:email},        
            
              //응답받을때
@@ -93,9 +94,24 @@
          
          });
          
-         
-	  
   });
+
+</script>
+
+<script type="text/javascript">
+$("#name").on("click", function(){
+	 
+	 var name = $("#name").val();
+	// console.log(name);
+	 
+	 if(name!=null){
+   		 /* $("#msgname").html("아이디를 입력해주세요.") */
+   	 }else{
+   		$("#msgname").html("아이디를 입력해주세요.")
+   	 }
+
+});
+
 
 </script>
 </html>
