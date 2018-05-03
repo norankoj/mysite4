@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -30,7 +31,7 @@ public class ApiGuestbookController {
 	
 	@ResponseBody
 	@RequestMapping(value="/add", method=RequestMethod.POST)
-	public GuestbookVO add(@ModelAttribute GuestbookVO vo) {
+	public GuestbookVO add(@RequestBody GuestbookVO vo) {
 		System.out.println("add");
 		System.out.println(vo.toString());
 		
@@ -39,5 +40,12 @@ public class ApiGuestbookController {
 		return guestvo;
 	}
 	
-
+	@ResponseBody
+	@RequestMapping("/delete")
+	public boolean delete(GuestbookVO vo) {
+		System.out.println("ajax-delete");
+		boolean isExists = service.delete(vo);
+	
+		return isExists;
+	}
 }

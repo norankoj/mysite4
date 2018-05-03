@@ -24,8 +24,13 @@ public class GuestService {
 		return dao.select();
 	}
 
-	public int delete(GuestbookVO vo) {
-		return dao.delete(vo);
+	public boolean delete(GuestbookVO vo) {
+		int no = dao.delete(vo);
+		if (no == 1) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 	
 	public GuestbookVO write(GuestbookVO vo) {

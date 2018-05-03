@@ -6,12 +6,18 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <link href="${pageContext.request.contextPath }/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
-  <link href="${pageContext.request.contextPath}/assets/css/mysite.css" rel="stylesheet" type="text/css">
-  <link href="${pageContext.request.contextPath}/assets/css/guestbook.css" rel="stylesheet" type="text/css">
-  <script type="text/javascript" src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
-  <script type="text/javascript" src="${pageContext.request.contextPath }/assets/bootstrap/js/bootstrap.min.js"></script>
-  <title>Insert title here</title>
+<link
+	href="${pageContext.request.contextPath }/assets/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/mysite.css"
+	rel="stylesheet" type="text/css">
+<link href="${pageContext.request.contextPath}/assets/css/guestbook.css"
+	rel="stylesheet" type="text/css">
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/assets/js/jquery/jquery-1.12.4.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath }/assets/bootstrap/js/bootstrap.min.js"></script>
+<title>Insert title here</title>
 </head>
 <body>
 
@@ -23,24 +29,22 @@
 			<div id="content">
 				<div id="guestbook">
 
-					
-						<table>
-							<tr>
-								<td>이름</td>
-								<td><input type="text" name="name" /></td>
-								<td>비밀번호</td>
-								<td><input type="password" name="pw" /></td>
-							</tr>
-							<tr>
-								<td colspan=4><textarea name="content" id="content"></textarea></td>
-							</tr>
-							<tr>
-								<td colspan=4 align=right><input id="btnAdd" type="button" VALUE=" 확인 " /></td>
-							</tr>
-						</table>
-						
-						<input id="btnModel" type="button" value="삭제창">
 
+					<table>
+						<tr>
+							<td>이름</td>
+							<td><input type="text" name="name" /></td>
+							<td>비밀번호</td>
+							<td><input type="password" name="pw" /></td>
+						</tr>
+						<tr>
+							<td colspan=4><textarea name="content" id="content"></textarea></td>
+						</tr>
+						<tr>
+							<td colspan=4 align=right><input id="btnAdd" type="button"
+								VALUE=" 확인 " /></td>
+						</tr>
+					</table>
 
 					<!-- 방명록 리스트 -->
 					<ul id=Glist>
@@ -56,7 +60,7 @@
 		<c:import url="/WEB-INF/views/includes/footer.jsp"></c:import>
 	</div>
 	<!-- /container -->
-	
+
 	<!-- 삭제팝업(모달)창 -->
 	<div class="modal fade" id="del-pop">
 		<div class="modal-dialog">
@@ -92,55 +96,50 @@
 	$(document).ready(function() {
 		fetchList();
 
-	  });
-	  
-	  
-	  
-	  
-$("#btnModel").on("click", function(){
-	console.log("모달");	  
-	$("#del-pop").modal();
-	  
-});
-	  
-$("#btnAdd").on("click", function(){
-	console.log("add");
-	
-	var name = $("[name=name]").val();
-	var pw = $("[name=pw]").val();
-	var content = $("[name=content]").val();
-	console.log(name);
-	console.log(pw);
-	console.log(content);
-	
-	$.ajax({
-		//요청할때
-		url : "${pageContext.request.contextPath }/api/gb/add", //controller적는 곳! 
-		type : "post",
-		data : {name:name, pw:pw, content:content},
+	});
 
-		//응답받을때
-		dataType : "json",
-		success : function(guestvo) {
-			console.log(guestvo);
-			render(guestvo,"up");
-			$("[name=name]").val("");
-			$("[name=pw]").val("");
-			$("[name=content]").val(""); 
-		},
-		error : function(XHR, status, error) {
-			console.error(status + " : " + error);
+	$("#btnAdd").on("click", function() {
+		console.log("add");
+
+		/* var name = $("[name=name]").val();
+		var pw = $("[name=pw]").val();
+		var content = $("[name=content]").val();
+		console.log(name);
+		console.log(pw);
+		console.log(content); */
+
+		//guestbookVO ={} //자바스크립트에서 객체 
+		guestbookVO = {
+			name : $("[name=name]").val(),
+			pw : $("[name=pw]").val(),
+			content : $("[name=content]").val()
 		}
-	  });
-});
+
+		$.ajax({
+			//요청할때
+			url : "${pageContext.request.contextPath }/api/gb/add", //controller적는 곳! 
+			type : "post",
+			contentType : "application/json",
+			data : JSON.stringify(guestbookVO), //제이슨 배열로 보낸다.하지만 이건 오류도 잘 안뜨고 메세지도 안떠서 곤란,,
+
+			//응답받을때
+			dataType : "json",
+			success : function(guestvo) {
+				console.log(guestvo);
+				render(guestvo, "up");
+				$("[name=name]").val("");
+				$("[name=pw]").val("");
+				$("[name=content]").val("");
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
 
 
+	function fetchList() {
 
-
-
-		
-function fetchList(){
-	
 		//list 요청 -->ajax
 		$.ajax({
 			//요청할때
@@ -154,51 +153,95 @@ function fetchList(){
 				console.log(list);
 				//console.log(list[0].name); ==>생각
 				//jstl은 시점이 달라서 여기선 자바 스크립트만..
-				
-				for(var i = 0; i<list.length; i++ ){
-					render(list[i],"down");
+
+				for (var i = 0; i < list.length; i++) {
+					render(list[i], "down");
 				}
-				
-				
 			},
 			error : function(XHR, status, error) {
 				console.error(status + " : " + error);
 			}
-		  });
-       }
-
-
-function render(guestbookVO, updown){
-	var str = "";
-	str +="<li>";
-	str +="  <table>";
-	str +="      <tr>";
-	str +="        <td>["+guestbookVO.no+"]</td>";
-	str +="        <td>"+guestbookVO.name+"</td>";
-	str +="        <td>"+guestbookVO.reg_date+"</td>";
-	str +="        <td><a href='${pageContext.request.contextPath}/guest/deleteform?no=${GuestbookVO.no}'>삭제</a></td>";
-	str +="      </tr>";
-	str +="      <tr>";
-	str +="       <td colspan=4>";
-	str +=          guestbookVO.content;
-	str +="       </td>";
-	str +="     </tr>";
-	str +="   </table>";
-	str +="  <br>";
-	str +="</li>";
-	
-	if(updown =="up"){
-		$("#Glist").prepend(str);
-	}else if(updown == "down"){
-	    $("#Glist").append(str);
-	}else{
-		console.log("오류")
+		});
 	}
-	
-}
 
-		//데이터 수신
-		//리스트 그리기 
+	function render(guestbookVO, updown) {
+		var str = "";
+		str += "<li id=" + guestbookVO.no + ">";
+		str += "  <table>";
+		str += "      <tr>";
+		str += "        <td>[" + guestbookVO.no + "]</td>";
+		str += "        <td>" + guestbookVO.name + "</td>";
+		str += "        <td>" + guestbookVO.reg_date + "</td>";
+		str += "        <td><input class='btn btn-primary btn-sm' type='button' value='삭제'></td>";
+		str += "        <input type='hidden' name='Mno' value=" + guestbookVO.no + ">";
+		//str +="        <td><a href='#' class="btn btn-danger" data-delno="+guestbookVO.no+" >삭제</a></td>"; 
+		str += "      </tr>";
+		str += "      <tr>";
+		str += "       <td colspan=4>";
+		str += guestbookVO.content;
+		str += "       </td>";
+		str += "     </tr>";
+		str += "   </table>";
+		str += "  <br>";
+		str += "</li>";
 
+		if (updown == "up") {
+			$("#Glist").prepend(str);
+		} else if (updown == "down") {
+			$("#Glist").append(str);
+		} else {
+			console.log("오류")
+		}
+
+	}
+
+
+
+
+	$("ul").on("click", "input", function() {
+		//var $this =$(this);
+		/*  $("#btnModel").on("click",function(){ */
+		console.log("모달");
+		$("#del-pop").modal();
+		var Mno = $("[name=Mno]").val();
+		console.log(Mno);
+		var Mno2 = $("[id=modalNo]").val(Mno);
+		console.log(Mno2);
+	/*  }); */
+	});
+
+	$("#btn_del").on("click", function() {
+		var pw = $("[id=modalPassword]").val();
+		var no = $("[id=modalNo]").val();
+		console.log(pw + no);
+		$.ajax({
+			//요청할때
+			url : "${pageContext.request.contextPath }/api/gb/delete", //controller적는 곳! 
+			type : "post",
+			data : {
+				pw : pw,
+				no : no
+			},
+
+			//응답받을때
+			dataType : "json",
+			success : function(isExists) {
+				if (isExists == true) {
+					console.log(isExists);
+					$("#" + no).remove();
+					$("#del-pop").modal("hide");
+				} else {
+					$("#del-pop").modal("hide");
+				}
+
+			},
+			error : function(XHR, status, error) {
+				console.error(status + " : " + error);
+			}
+		});
+	});
+
+	//데이터 수신
+	//리스트 그리기 
 </script>
 </html>

@@ -37,6 +37,7 @@ public class GuestDAO {
 
 	public int delete(GuestbookVO vo) {
 		return sqlsession.delete("guest.delete",vo);
+	
 	}
 
 }
