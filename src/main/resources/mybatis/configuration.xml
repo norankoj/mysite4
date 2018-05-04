@@ -5,11 +5,13 @@
 		<typeAlias alias="UserVO" type="com.javaex.vo.UserVO" />
 		<typeAlias alias="guestbookVO" type="com.javaex.vo.GuestbookVO" />
 		<typeAlias alias="BoardVO" type="com.javaex.vo.BoardVO" />
+		<typeAlias alias="FileVO" type="com.javaex.vo.FileVO" />
 	</typeAliases>
 	<mappers>
 		<mapper resource="mybatis/mappers/user.xml" />
 		<mapper resource="mybatis/mappers/guest.xml" />
 		<mapper resource="mybatis/mappers/Board.xml" />
+		<mapper resource="mybatis/mappers/fileUpload.xml" />
 	</mappers>
 </configuration>
 

@@ -20,5 +20,6 @@ a:visited {
 				<li><a href="${pageContext.request.contextPath}/guest/list">방명록</a></li>
 				<li><a href="${pageContext.request.contextPath}/board/list">게시판</a></li>
 				<li><a href="${pageContext.request.contextPath}/guest/list-ajax">ajax_방명록</a></li>
+				<li><a href="${pageContext.request.contextPath}/gallery/list">갤러리</a></li>
 			</ul>
 		</div> <!-- /navigation -->
